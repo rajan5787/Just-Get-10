@@ -108,30 +108,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/txt_11"
+                android:onClick="txt_click"
                 style="@style/txt_board"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/txt_12"
+                android:onClick="txt_click"
                 style="@style/txt_board"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/txt_13"
+                android:onClick="txt_click"
                 style="@style/txt_board"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/txt_14"
+                android:onClick="txt_click"
                 style="@style/txt_board"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/txt_15"
+                android:onClick="txt_click"
                 style="@style/txt_board"/>
 
         </LinearLayout>
@@ -147,30 +152,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/txt_21"
+                android:onClick="txt_click"
                 style="@style/txt_board"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/txt_22"
+                android:onClick="txt_click"
                 style="@style/txt_board"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/txt_23"
+                android:onClick="txt_click"
                 style="@style/txt_board"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/txt_24"
+                android:onClick="txt_click"
                 style="@style/txt_board"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/txt_25"
+                android:onClick="txt_click"
                 style="@style/txt_board"/>
 
         </LinearLayout>
@@ -187,30 +197,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/txt_31"
+                android:onClick="txt_click"
                 style="@style/txt_board"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/txt_32"
+                android:onClick="txt_click"
                 style="@style/txt_board"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/txt_33"
+                android:onClick="txt_click"
                 style="@style/txt_board"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/txt_34"
+                android:onClick="txt_click"
                 style="@style/txt_board"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/txt_35"
+                android:onClick="txt_click"
                 style="@style/txt_board"/>
 
         </LinearLayout>
@@ -226,30 +241,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/txt_41"
+                android:onClick="txt_click"
                 style="@style/txt_board"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/txt_42"
+                android:onClick="txt_click"
                 style="@style/txt_board"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/txt_43"
+                android:onClick="txt_click"
                 style="@style/txt_board"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/txt_44"
+                android:onClick="txt_click"
                 style="@style/txt_board"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/txt_45"
+                android:onClick="txt_click"
                 style="@style/txt_board"/>
 
         </LinearLayout>
@@ -265,30 +285,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/txt_51"
+                android:onClick="txt_click"
                 style="@style/txt_board"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/txt_52"
+                android:onClick="txt_click"
                 style="@style/txt_board"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/txt_53"
+                android:onClick="txt_click"
                 style="@style/txt_board"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/txt_54"
+                android:onClick="txt_click"
                 style="@style/txt_board"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/txt_55"
+                android:onClick="txt_click"
                 style="@style/txt_board"/>
 
         </LinearLayout>
