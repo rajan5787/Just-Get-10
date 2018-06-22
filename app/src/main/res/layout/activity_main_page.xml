@@ -1,28 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#ff7961"
+    android:background="#eeff7961"
     style="@style/Theme.AppCompat.NoActionBar"
     tools:context="rajan5787.tikuraja.justget10.MainPage">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="match_parent"
         android:id="@+id/toolbar"
+        android:background="@drawable/bg_toolbar"
+        android:layout_weight="2.2"
         android:orientation="horizontal">
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="#ff7961"
+        android:layout_height="match_parent"
         android:paddingRight="8dp"
         android:id="@+id/ll_scorebar"
+        android:layout_weight="1.9"
         android:layout_below="@+id/toolbar"
         android:paddingLeft="8dp">
 
@@ -30,9 +32,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight=".9"
-            android:background="#ffffff"
             android:layout_marginRight="4dp"
             android:layout_gravity="center"
+            android:background="@drawable/bg_rl_score"
             android:paddingLeft="4dp">
 
 
@@ -40,6 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Best"
+                android:textSize="18sp"
                 android:id="@+id/txt_best"
                 android:layout_centerVertical="true"/>
 
@@ -47,6 +50,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="5"
+                android:background="#aa000000"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
                 android:layout_toRightOf="@+id/txt_best"
                 android:layout_marginLeft="8dp"
                 android:padding="8dp"
@@ -56,10 +64,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="22sp"
+                android:textSize="28sp"
+                android:text="100"
                 android:layout_centerVertical="true"
                 android:textStyle="bold"
-                android:layout_marginRight="8dp"
+                android:layout_marginRight="18dp"
                 android:layout_alignParentRight="true"
                 />
         </RelativeLayout>
@@ -67,10 +76,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#ffffff"
             android:layout_gravity="center"
             android:layout_marginLeft="4dp"
-
+            android:background="@drawable/bg_rl_score"
             android:layout_weight="1">
 
             <TextView
@@ -78,24 +86,26 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="15"
-                android:padding="8dp"
+                android:layout_margin="4dp"
+                android:padding="4dp"
                 android:textStyle="bold"
                 android:layout_gravity="center"
-                android:textSize="22sp"/>
+                android:textSize="28sp"/>
         </LinearLayout>
 
     </LinearLayout>
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:layout_below="@+id/ll_scorebar"
         android:layout_above="@+id/btn_restart_game"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:background="#ffffff"
+        android:background="@drawable/bg_rl_score"
         android:padding="4dp"
+        android:elevation="8dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -319,14 +329,23 @@
         </LinearLayout>
     </LinearLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.9">
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btn_restart_game"
+        android:background="@drawable/bg_rl_score"
         android:text="Start New Game"
-        android:textStyle="bold"
-        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
         android:layout_marginTop="22dp"
+        android:padding="8dp"
+        android:textAllCaps="false"
+        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="18dp"/>
-</RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

@@ -2,12 +2,18 @@ package rajan5787.tikuraja.justget10;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.concurrent.TimeUnit;
 
 public class MainPage extends AppCompatActivity {
 
@@ -21,10 +27,15 @@ public class MainPage extends AppCompatActivity {
     int W = 5;
     int H = 5;
 
+    Animation animFadein;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
+
+        animFadein = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.slide_down);
 
         board = new int[9][9];
         selected = new boolean[9][9];
@@ -38,6 +49,8 @@ public class MainPage extends AppCompatActivity {
                 newGame();
             }
         });
+
+        newGame();
     }
 
     public void define(){
@@ -71,27 +84,31 @@ public class MainPage extends AppCompatActivity {
 
     public void check(int h,int w) {
 
-        if (selected[h][w] == false) {
+
+        checkNext(h,w);
+        if(selected[h][w]==true) {
+            combine(h, w);
             for (int i = 1; i <= H; i++) {
                 for (int j = 1; j <= W; j++) {
                     selected[i][j] = false;
                 }
             }
-            updateBoard();
-            colorBoard();
-            checkNext(h, w);
-        }
-        else if(selected[h][w] == true) {
-            combine(h,w);
-            for(int i=1; i<=H; i++) {
-                for(int j=1; j<=W; j++) {
-                    selected[i][j] = false;
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    try {
+                        fall();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    fillNumbers();
+                    colorBoard();
+                    updateBoard();
                 }
-            }
-            fall();
-            fillNumbers();
-            colorBoard();
-            updateBoard();
+            }, 10);
+
         }
     }
 
@@ -295,23 +312,31 @@ public class MainPage extends AppCompatActivity {
             for(int j=1; j<=W; j++) {
                 if(selected[i][j] == true) {
                     board[i][j] = 0;
+                    textViews[i][j].setVisibility(View.INVISIBLE);
                 }
             }
         }
     }
 
-    public void fall() {
+    public void fall() throws InterruptedException {
 
-        for(int n=1; n<=H; n++) {
-            for(int i=1; i<=H; i++) {
-                for(int j=1; j<=W; j++) {
-                    if(board[i][j] == 0) {
-                        board[i][j] = board[i-1][j];
-                        board[i-1][j] = 0;
+        for (int n = 1; n <= H; n++) {
+            for (int i = 1; i <= H; i++) {
+                for (int j = 1; j <= W; j++) {
+                    if (board[i][j] == 0) {
+                        System.out.println(" h " + i + " w " + j);
+                        board[i][j] = board[i - 1][j];
+                        board[i - 1][j] = 0;
+                        if(i!=1)
+                            textViews[i-1][j].setVisibility(View.INVISIBLE);
+                        textViews[i][j].setText(String.valueOf(board[i][j]));
+                        textViews[i][j].setVisibility(View.VISIBLE);
                     }
                 }
             }
+            TimeUnit.MILLISECONDS.sleep((n-1)*2*10);
         }
+
     }
 
     public void fillNumbers() {
@@ -332,8 +357,13 @@ public class MainPage extends AppCompatActivity {
                     else {
                         board[i][j] = 1;
                     }
-                   // $("#" + rc).css("display", "none").delay(2).fadeIn("fast");
+                    // $("#" + rc).css("display", "none").delay(2).fadeIn("fast");
+                    textViews[i][j].setText(String.valueOf(board[i][j]));
+                    textViews[i][j].setVisibility(View.VISIBLE);
+                    textViews[i][j].startAnimation(animFadein);
+
                 }
+
             }
         }
     }

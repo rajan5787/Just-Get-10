@@ -14,4 +14,9 @@
     <color name="bittersweet">#e25f70</color>
     <color name="lavendet">#6b82a8</color>
     <color name="creosote">#2e323c</color>
+    <color name="game_container">#bbada0</color>
+    <color name="grid_cell">#ccc0b3</color>
+
+    <color name="title_text">#f9f6f2</color>
+    <color name="tile_color_2">#eee4da</color>
 </resources>
