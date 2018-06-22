@@ -19,6 +19,7 @@ public class MainPage extends AppCompatActivity {
 
 
     Button btnRestart;
+    TextView txtMaxScore, txtMaxNumber, txtCurrScore;
     TextView[][] textViews;
 
     int[][] board;
@@ -26,8 +27,13 @@ public class MainPage extends AppCompatActivity {
 
     int W = 5;
     int H = 5;
-
+    int curr_score =0;
+    int max_score;
+    int max_number;
+    int number = 0;
     Animation animFadein;
+
+    UserInformation userInformation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +48,6 @@ public class MainPage extends AppCompatActivity {
         textViews = new TextView[9][9];
         define();
         btnRestart = findViewById(R.id.btn_restart_game);
-
         btnRestart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,37 +55,23 @@ public class MainPage extends AppCompatActivity {
             }
         });
 
-        newGame();
+        userInformation = new UserInformation(getApplicationContext());
+        if(userInformation.isFlag()){
+            board = userInformation.getCurrent_state();
+            curr_score = userInformation.getCurrent_score();
+            max_score = userInformation.getMax_score();
+            max_number = userInformation.getMax_number();
+            txtMaxScore.setText(String.valueOf(max_score));
+            txtMaxNumber.setText(String.valueOf(max_number));
+            txtCurrScore.setText(String.valueOf(curr_score));
+
+            updateBoard();
+        }
+        else {
+            newGame();
+        }
     }
 
-    public void define(){
-
-        textViews[1][1] = findViewById(R.id.txt_11);
-        textViews[1][2] = findViewById(R.id.txt_12);
-        textViews[1][3] = findViewById(R.id.txt_13);
-        textViews[1][4] = findViewById(R.id.txt_14);
-        textViews[1][5] = findViewById(R.id.txt_15);
-        textViews[2][1] = findViewById(R.id.txt_21);
-        textViews[2][2] = findViewById(R.id.txt_22);
-        textViews[2][3] = findViewById(R.id.txt_23);
-        textViews[2][4] = findViewById(R.id.txt_24);
-        textViews[2][5] = findViewById(R.id.txt_25);
-        textViews[3][1] = findViewById(R.id.txt_31);
-        textViews[3][2] = findViewById(R.id.txt_32);
-        textViews[3][3] = findViewById(R.id.txt_33);
-        textViews[3][4] = findViewById(R.id.txt_34);
-        textViews[3][5] = findViewById(R.id.txt_35);
-        textViews[4][1] = findViewById(R.id.txt_41);
-        textViews[4][2] = findViewById(R.id.txt_42);
-        textViews[4][3] = findViewById(R.id.txt_43);
-        textViews[4][4] = findViewById(R.id.txt_44);
-        textViews[4][5] = findViewById(R.id.txt_45);
-        textViews[5][1] = findViewById(R.id.txt_51);
-        textViews[5][2] = findViewById(R.id.txt_52);
-        textViews[5][3] = findViewById(R.id.txt_53);
-        textViews[5][4] = findViewById(R.id.txt_54);
-        textViews[5][5] = findViewById(R.id.txt_55);
-    }
 
     public void check(int h,int w) {
 
@@ -106,6 +97,9 @@ public class MainPage extends AppCompatActivity {
                     fillNumbers();
                     colorBoard();
                     updateBoard();
+                    userInformation.setCurrent_state(board);
+                    userInformation.setCurrent_score(curr_score);
+                    userInformation.setFlag(true);
                 }
             }, 10);
 
@@ -201,6 +195,10 @@ public class MainPage extends AppCompatActivity {
 
     public void newGame(){
 
+        if(curr_score>max_score)
+            userInformation.setMax_score(curr_score);
+
+        userInformation.setFlag(false);
         double val = 0;
         for(int i = 1;i<=H;i++){
             for(int j = 1;j<=W;j++){
@@ -223,6 +221,14 @@ public class MainPage extends AppCompatActivity {
         }
 
         updateBoard();
+        curr_score = 0;
+        userInformation.setCurrent_state(board);
+        userInformation.setCurrent_score(curr_score);
+        txtMaxScore.setText(String.valueOf(userInformation.getMax_score()));
+        txtMaxNumber.setText(String.valueOf(userInformation.getMax_number()));
+        txtCurrScore.setText(String.valueOf(userInformation.getCurrent_score()));
+        userInformation.setFlag(true);
+
     }
 
     public void updateBoard(){
@@ -244,35 +250,36 @@ public class MainPage extends AppCompatActivity {
 
                 switch (board[i][j]){
                     case 1:
-                        textViews[i][j].setBackgroundResource(R.color.cover);
+                        textViews[i][j].setBackgroundResource(R.drawable.bg_tile_one);
+
                         break;
                     case 2:
                         Log.d("dfdf","fuck");
-                        textViews[i][j].setBackgroundResource(R.color.terracotta);
+                        textViews[i][j].setBackgroundResource(R.drawable.bg_tile_two);
                         break;
                     case 3:
-                        textViews[i][j].setBackgroundResource(R.color.puce);
+                        textViews[i][j].setBackgroundResource(R.drawable.bg_tile_three);
                         break;
                     case 4:
-                        textViews[i][j].setBackgroundResource(R.color.shutter_blue);
+                        textViews[i][j].setBackgroundResource(R.drawable.bg_tile_four);
                         break;
                     case 5:
-                        textViews[i][j].setBackgroundResource(R.color.lavendet);
+                        textViews[i][j].setBackgroundResource(R.drawable.bg_tile_five);
                         break;
                     case 6:
-                        textViews[i][j].setBackgroundResource(R.color.marina);
+                        textViews[i][j].setBackgroundResource(R.drawable.bg_tile_six);
                         break;
                     case 7:
-                        textViews[i][j].setBackgroundResource(R.color.bittersweet);
+                        textViews[i][j].setBackgroundResource(R.drawable.bg_tile_seven);
                         break;
                     case 8:
-                        textViews[i][j].setBackgroundResource(R.color.azul_verde);
+                        textViews[i][j].setBackgroundResource(R.drawable.bg_tile_eight);
                         break;
                     case 9:
-                        textViews[i][j].setBackgroundResource(R.color.fresh);
+                        textViews[i][j].setBackgroundResource(R.drawable.bg_tile_nine);
                         break;
                     case 10:
-                        textViews[i][j].setBackgroundResource(R.color.creosote);
+                        textViews[i][j].setBackgroundResource(R.drawable.bg_tile_ten);
                         break;
                 }
             }
@@ -305,17 +312,23 @@ public class MainPage extends AppCompatActivity {
 
     public void combine(int h,int w) {
 
+        number = board[h][w];
         int val = board[h][w] + 1;
+        if(val>max_number)
+            userInformation.setMax_number(val);
+        curr_score+=number;
         board[h][w] = val;
         selected[h][w] = false;
         for(int i=1; i<=H; i++) {
             for(int j=1; j<=W; j++) {
                 if(selected[i][j] == true) {
+                    curr_score+=number;
                     board[i][j] = 0;
                     textViews[i][j].setVisibility(View.INVISIBLE);
                 }
             }
         }
+        txtCurrScore.setText(String.valueOf(curr_score));
     }
 
     public void fall() throws InterruptedException {
@@ -368,4 +381,71 @@ public class MainPage extends AppCompatActivity {
         }
     }
 
+    public void define(){
+
+        txtMaxNumber = findViewById(R.id.txt_max_number);
+        txtMaxScore = findViewById(R.id.txt_max_score);
+        txtCurrScore = findViewById(R.id.txt_curr_score);
+        textViews[1][1] = findViewById(R.id.txt_11);
+        textViews[1][2] = findViewById(R.id.txt_12);
+        textViews[1][3] = findViewById(R.id.txt_13);
+        textViews[1][4] = findViewById(R.id.txt_14);
+        textViews[1][5] = findViewById(R.id.txt_15);
+        textViews[2][1] = findViewById(R.id.txt_21);
+        textViews[2][2] = findViewById(R.id.txt_22);
+        textViews[2][3] = findViewById(R.id.txt_23);
+        textViews[2][4] = findViewById(R.id.txt_24);
+        textViews[2][5] = findViewById(R.id.txt_25);
+        textViews[3][1] = findViewById(R.id.txt_31);
+        textViews[3][2] = findViewById(R.id.txt_32);
+        textViews[3][3] = findViewById(R.id.txt_33);
+        textViews[3][4] = findViewById(R.id.txt_34);
+        textViews[3][5] = findViewById(R.id.txt_35);
+        textViews[4][1] = findViewById(R.id.txt_41);
+        textViews[4][2] = findViewById(R.id.txt_42);
+        textViews[4][3] = findViewById(R.id.txt_43);
+        textViews[4][4] = findViewById(R.id.txt_44);
+        textViews[4][5] = findViewById(R.id.txt_45);
+        textViews[5][1] = findViewById(R.id.txt_51);
+        textViews[5][2] = findViewById(R.id.txt_52);
+        textViews[5][3] = findViewById(R.id.txt_53);
+        textViews[5][4] = findViewById(R.id.txt_54);
+        textViews[5][5] = findViewById(R.id.txt_55);
+    }
+
 }
+//
+//
+//switch (board[i][j]){
+//        case 1:
+//        textViews[i][j].setBackgroundResource(R.color.cover);
+//
+//        break;
+//        case 2:
+//        Log.d("dfdf","fuck");
+//        textViews[i][j].setBackgroundResource(R.color.terracotta);
+//        break;
+//        case 3:
+//        textViews[i][j].setBackgroundResource(R.color.puce);
+//        break;
+//        case 4:
+//        textViews[i][j].setBackgroundResource(R.color.shutter_blue);
+//        break;
+//        case 5:
+//        textViews[i][j].setBackgroundResource(R.color.lavendet);
+//        break;
+//        case 6:
+//        textViews[i][j].setBackgroundResource(R.color.marina);
+//        break;
+//        case 7:
+//        textViews[i][j].setBackgroundResource(R.color.bittersweet);
+//        break;
+//        case 8:
+//        textViews[i][j].setBackgroundResource(R.color.azul_verde);
+//        break;
+//        case 9:
+//        textViews[i][j].setBackgroundResource(R.color.fresh);
+//        break;
+//        case 10:
+//        textViews[i][j].setBackgroundResource(R.color.creosote);
+//        break;

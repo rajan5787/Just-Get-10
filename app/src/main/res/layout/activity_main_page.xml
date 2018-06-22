@@ -15,6 +15,7 @@
         android:id="@+id/toolbar"
         android:background="@drawable/bg_toolbar"
         android:layout_weight="2.2"
+        android:elevation="4dp"
         android:orientation="horizontal">
 
     </LinearLayout>
@@ -24,13 +25,16 @@
         android:layout_height="match_parent"
         android:paddingRight="8dp"
         android:id="@+id/ll_scorebar"
-        android:layout_weight="1.9"
+        android:layout_weight="2.0"
+        android:layout_marginBottom="22dp"
+        android:layout_marginTop="22dp"
+
         android:layout_below="@+id/toolbar"
         android:paddingLeft="8dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight=".9"
             android:layout_marginRight="4dp"
             android:layout_gravity="center"
@@ -49,6 +53,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/txt_max_number"
                 android:text="5"
                 android:background="#aa000000"
                 android:textColor="#ffffff"
@@ -57,13 +62,15 @@
                 android:layout_marginBottom="4dp"
                 android:layout_toRightOf="@+id/txt_best"
                 android:layout_marginLeft="8dp"
-                android:padding="8dp"
                 android:textSize="22sp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
                 android:layout_centerVertical="true"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/txt_max_score"
                 android:textSize="28sp"
                 android:text="100"
                 android:layout_centerVertical="true"
@@ -75,7 +82,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_marginLeft="4dp"
             android:background="@drawable/bg_rl_score"
@@ -84,10 +91,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/txt_curr_score"
                 android:gravity="center"
                 android:text="15"
                 android:layout_margin="4dp"
-                android:padding="4dp"
                 android:textStyle="bold"
                 android:layout_gravity="center"
                 android:textSize="28sp"/>
@@ -332,7 +339,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1.9">
+        android:layout_weight="2.0">
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
