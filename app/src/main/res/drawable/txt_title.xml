@@ -10,8 +10,8 @@
     </shape>
 </item>
 
-<item android:bottom="4px"
-    android:right="4dp">
+<item android:bottom="8px"
+    android:right="2dp">
     <shape  android:shape="rectangle">
         <solid android:color="#ff7961"></solid>
 
