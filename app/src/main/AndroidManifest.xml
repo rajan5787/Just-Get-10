@@ -17,6 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainPage" />
+        <activity android:name=".UserGuide" />
+        <activity android:name=".Developer"></activity>
     </application>
 
 </manifest>

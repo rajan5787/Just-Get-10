@@ -33,6 +33,7 @@ public class MainPage extends AppCompatActivity {
     TextView txtMaxScore, txtMaxNumber, txtCurrScore;
     TextView[][] textViews;
 
+
     int[][] board;
     boolean[][] selected;
 
@@ -55,9 +56,8 @@ public class MainPage extends AppCompatActivity {
         setContentView(R.layout.activity_main_page);
 
 
-
         define();
-       showAds();
+        showAds();
 
         btnRestart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,6 +169,7 @@ public class MainPage extends AppCompatActivity {
         }
         return true;
     }
+
     public void check(int h,int w) {
 
 
@@ -301,7 +302,7 @@ public class MainPage extends AppCompatActivity {
         if(curr_number>max_number)
             userInformation.setMax_number(curr_number);
 
-       // showInterstitial();
+        // showInterstitial();
         userInformation.setFlag(false);
         double val = 0;
         for(int i = 1;i<=H;i++){
@@ -567,8 +568,8 @@ public class MainPage extends AppCompatActivity {
         mAdView =  findViewById(R.id.adView);
 
         AdRequest adRequest = new AdRequest.Builder()
-                  .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                 .addTestDevice("E94309F6B1155D24023F2474FB1F0E9D")
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("E94309F6B1155D24023F2474FB1F0E9D")
                 .build();
 
         mAdView.setAdListener(new AdListener() {
