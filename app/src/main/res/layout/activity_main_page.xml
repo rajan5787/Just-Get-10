@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#eeff7961"
+    android:id="@+id/main_ll"
     style="@style/Theme.AppCompat.NoActionBar"
     tools:context="rajan5787.tikuraja.justget10.MainPage">
 
@@ -14,7 +19,7 @@
         android:layout_height="match_parent"
         android:id="@+id/toolbar"
         android:background="@drawable/bg_toolbar"
-        android:layout_weight="2.2"
+        android:layout_weight="1.9"
         android:elevation="4dp"
         android:orientation="horizontal">
 
@@ -25,7 +30,7 @@
         android:layout_height="match_parent"
         android:paddingRight="8dp"
         android:id="@+id/ll_scorebar"
-        android:layout_weight="2.0"
+        android:layout_weight="1.75"
         android:layout_marginBottom="22dp"
         android:layout_marginTop="22dp"
 
@@ -97,7 +102,7 @@
                 android:layout_margin="4dp"
                 android:textStyle="bold"
                 android:layout_gravity="center"
-                android:textSize="28sp"/>
+                android:textSize="34sp"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -105,7 +110,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="0.9"
         android:layout_below="@+id/ll_scorebar"
         android:layout_above="@+id/btn_restart_game"
         android:layout_marginLeft="8dp"
@@ -158,7 +163,6 @@
 
         </LinearLayout>
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -201,7 +205,6 @@
                 style="@style/txt_board"/>
 
         </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -247,7 +250,6 @@
 
         </LinearLayout>
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -290,7 +292,6 @@
                 style="@style/txt_board"/>
 
         </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -339,7 +340,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="2.0">
+        android:layout_weight="1.67">
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -351,8 +352,24 @@
         android:padding="8dp"
         android:textAllCaps="false"
         android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="18dp"/>
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/adView"
+        android:layout_marginBottom="8dp"/>
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/banner_home_footer">
+        </com.google.android.gms.ads.AdView>
+
     </RelativeLayout>
 
+
 </LinearLayout>
+    <include layout="@layout/custom_dialogbox"
+        ></include>
+</FrameLayout>

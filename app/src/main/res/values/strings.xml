@@ -15,4 +15,9 @@
     <string name="restart">Restart</string>
     <string name="restart_game_title">Restart Game</string>
     <string name="restart_game_message">Are you sure you want to restart the game?</string>
+
+    <string name="admob_app_id"></string>
+    <string name="banner_home_footer"></string>
+    <string name="interstitial_full_screen"></string>
+    <string name="rewarded_video"></string>
 </resources>

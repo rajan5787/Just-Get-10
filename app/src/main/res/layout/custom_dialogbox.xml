@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="8dp"
+    android:layout_marginLeft="8dp"
+    android:gravity="center"
+    android:visibility="gone"
+    android:id="@+id/ll_dialog"
+    style="@style/style_ll_dialog"
+    android:layout_gravity="center"
+    android:background="@android:color/transparent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent">
+        <RelativeLayout
+            android:id="@+id/semi_trans"
+            android:background="@android:color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="25dp">
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_below="@+id/semi_trans"
+            android:id="@+id/dialog_body"
+            android:background="@color/fresh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:gravity="center"
+                android:textSize="28sp"
+                android:textColor="#FFFFFF"
+                android:paddingBottom="12dp"
+                android:background="@android:color/transparent"
+                android:layout_marginTop="28dp"
+                android:layout_gravity="center"
+                android:id="@+id/btndis"
+                android:text="No more move..."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_max_number_dialog"
+                android:text="6"
+                android:textSize="34dp"
+                android:paddingTop="8dp"
+                android:paddingRight="22dp"
+                android:paddingLeft="22dp"
+                android:paddingBottom="8dp"
+                android:textStyle="bold"
+                android:textColor="#ffffff"
+                android:layout_below="@+id/btndis"
+                android:gravity="center"
+                android:elevation="8dp"
+                android:layout_centerHorizontal="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_max_score_dialog"
+                android:text="6"
+                android:textSize="28dp"
+                android:paddingTop="12dp"
+                android:paddingRight="18dp"
+                android:paddingLeft="18dp"
+                android:paddingBottom="12dp"
+                android:textStyle="bold"
+                android:textColor="#ffffff"
+                android:layout_below="@+id/txt_max_number_dialog"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/review_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:elevation="5dp"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:layout_marginBottom="-20dp"
+            android:background="@drawable/bg_circle"
+            android:layout_above="@+id/dialog_body" />
+
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/dialog_action"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFF">
+
+        <LinearLayout
+            android:id="@+id/postive_feedback_layout"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="#24aeaeae"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/positive_feedback_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Yes"
+                android:onClick="txt_dialog"
+                android:textStyle="bold"
+                android:textSize="34sp"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:textColor="#aa00aa00"
+                android:layout_marginTop="5dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/negative_feedback_layout"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/negative_feedback_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Exit"
+                android:onClick="txt_dialog"
+                android:textStyle="bold"
+                android:textSize="34sp"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:textColor="#aaaa0000"
+                android:layout_marginTop="5dp"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
