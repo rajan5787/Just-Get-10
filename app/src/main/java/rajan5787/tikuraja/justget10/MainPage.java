@@ -3,9 +3,11 @@ package rajan5787.tikuraja.justget10;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 
@@ -24,19 +27,13 @@ import java.util.concurrent.TimeUnit;
 
 public class MainPage extends AppCompatActivity {
 
-
-    public LinearLayout yes, no,llDialog, mainLL;
-    public TextView btndes,txtScore,txtNumber,txtNo,txtYes;
-
     int flag_dialog = 0;
     Button btnRestart;
     TextView txtMaxScore, txtMaxNumber, txtCurrScore;
     TextView[][] textViews;
 
-
     int[][] board;
     boolean[][] selected;
-
     int W = 5;
     int H = 5;
     int curr_score =0;
@@ -44,8 +41,9 @@ public class MainPage extends AppCompatActivity {
     int max_number;
     int curr_number;
     int number = 0;
-    Animation animFadein, animationDown, animationUp;
     UserInformation userInformation;
+
+    Animation animFadein;
     InterstitialAd mInterstitialAd;
     AdRequest adRequest;
     private AdView mAdView;
@@ -58,16 +56,6 @@ public class MainPage extends AppCompatActivity {
 
         define();
         showAds();
-
-        btnRestart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                flag_dialog = 1;
-                showDialogg();
-            }
-        });
-
         if(userInformation.isFlag()){
             board = userInformation.getCurrent_state();
             curr_score = userInformation.getCurrent_score();
@@ -82,81 +70,17 @@ public class MainPage extends AppCompatActivity {
         else {
             newGame();
         }
-    }
 
-    public void showDialogg(){
-
-        llDialog.startAnimation(animationUp);
-        mainLL.setClickable(false);
-        if(flag_dialog==1) {
-            btndes.setText("Do you want to start new Game?");
-            txtScore.setVisibility(View.GONE);
-            txtNumber.setVisibility(View.GONE);
-            txtYes.setText("Yes");
-            txtNo.setText("No");
-            no.setVisibility(View.VISIBLE);
-        }
-        else if(flag_dialog==2) {
-            btndes.setText("No more move..");
-            txtScore.setText(String.valueOf(curr_score));
-            txtNumber.setText(String.valueOf(curr_number));
-            tctNumberBackGround();
-            txtScore.setVisibility(View.VISIBLE);
-            txtNumber.setVisibility(View.VISIBLE);
-            txtYes.setText("Try Again");
-            no.setVisibility(View.GONE);
-        }
-        else if(flag_dialog==3){
-            btndes.setText("Do you want to leave?");
-            txtScore.setVisibility(View.GONE);
-            txtNumber.setVisibility(View.GONE);
-            txtYes.setText("Yes");
-            txtNo.setText("No");
-
-            no.setVisibility(View.VISIBLE);
-        }
-
-        llDialog.setVisibility(View.VISIBLE);
+        btnRestart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                flag_dialog = 1;
+                showCustomDialog();
+            }
+        });
 
     }
 
-    private void tctNumberBackGround() {
-
-        switch (curr_number){
-            case 1:
-                txtNumber.setBackgroundResource(R.drawable.bg_tile_one);
-
-                break;
-            case 2:
-                Log.d("dfdf","fuck");
-                txtNumber.setBackgroundResource(R.drawable.bg_tile_two);
-                break;
-            case 3:
-                txtNumber.setBackgroundResource(R.drawable.bg_tile_three);
-                break;
-            case 4:
-                txtNumber.setBackgroundResource(R.drawable.bg_tile_four);
-                break;
-            case 5:
-                txtNumber.setBackgroundResource(R.drawable.bg_tile_five);
-                break;
-            case 6:
-                txtNumber.setBackgroundResource(R.drawable.bg_tile_six);
-                break;
-            case 7:
-                txtNumber.setBackgroundResource(R.drawable.bg_tile_seven);
-                break;
-            case 8:
-                txtNumber.setBackgroundResource(R.drawable.bg_tile_eight);
-                break;
-            case 9:
-                txtNumber.setBackgroundResource(R.drawable.bg_tile_nine);
-                break;
-            case 10:
-                txtNumber.setBackgroundResource(R.drawable.bg_tile_ten);
-                break;
-        }
-    }
 
     public boolean chekkk(){
 
@@ -171,7 +95,6 @@ public class MainPage extends AppCompatActivity {
     }
 
     public void check(int h,int w) {
-
 
         checkNext(h,w);
         if(selected[h][w]==true) {
@@ -200,194 +123,14 @@ public class MainPage extends AppCompatActivity {
                     userInformation.setFlag(true);
                     if(chekkk()){
                         flag_dialog = 2;
-                        showDialogg();
+                        showCustomDialog();
                     }
                 }
             }, 10);
 
-        }
-    }
-
-    public void txt_click(View view){
-
-        int id = view.getId();
-        Log.d("MainPage","txtClick " +id);
-        switch (id){
-
-            case R.id.txt_11:
-                check(1,1);
-                break;
-            case R.id.txt_12:
-                check(1,2);
-                break;
-            case R.id.txt_13:
-                check(1,3);
-                break;
-            case R.id.txt_14:
-                check(1,4);
-                break;
-            case R.id.txt_15:
-                check(1,5);
-                break;
-            case R.id.txt_21:
-                check(2,1);
-                break;
-            case R.id.txt_22:
-                check(2,2);
-                break;
-            case R.id.txt_23:
-                check(2,3);
-                break;
-            case R.id.txt_24:
-                check(2,4);
-                break;
-            case R.id.txt_25:
-                check(2,5);
-                break;
-            case R.id.txt_31:
-                check(3,1);
-                break;
-            case R.id.txt_32:
-                check(3,2);
-                break;
-            case R.id.txt_33:
-                check(3,3);
-                break;
-            case R.id.txt_34:
-                check(3,4);
-                break;
-            case R.id.txt_35:
-                check(3,5);
-                break;
-            case R.id.txt_41:
-                check(4,1);
-                break;
-            case R.id.txt_42:
-                check(4,2);
-                break;
-            case R.id.txt_43:
-                check(4,3);
-                break;
-            case R.id.txt_44:
-                check(4,4);
-                break;
-            case R.id.txt_45:
-                check(4,5);
-                break;
-            case R.id.txt_51:
-                check(5,1);
-                break;
-            case R.id.txt_52:
-                check(5,2);
-                break;
-            case R.id.txt_53:
-                check(5,3);
-                break;
-            case R.id.txt_54:
-                check(5,4);
-                break;
-            case R.id.txt_55:
-                check(5,5);
-                break;
-
-
-        }
-
-    }
-
-    public void newGame(){
-
-        if(curr_score>max_score)
-            userInformation.setMax_score(curr_score);
-        if(curr_number>max_number)
-            userInformation.setMax_number(curr_number);
-
-        // showInterstitial();
-        userInformation.setFlag(false);
-        double val = 0;
-        for(int i = 1;i<=H;i++){
-            for(int j = 1;j<=W;j++){
-
-                val = Math.floor(Math.random()*10+1);
-
-                if(val==1){
-                    board[i][j] = 4;
-                }
-                else if(val<=3){
-                    board[i][j] = 3;
-                }
-                else if(val<=6){
-                    board[i][j] = 2;
-                }
-                else{
-                    board[i][j] = 1;
-                }
-            }
-        }
-
-        updateBoard();
-        curr_score = 0;
-        curr_number = 0;
-        userInformation.setCurrent_state(board);
-        userInformation.setCurrent_score(curr_score);
-        txtMaxScore.setText(String.valueOf(userInformation.getMax_score()));
-        txtMaxNumber.setText(String.valueOf(userInformation.getMax_number()));
-        txtCurrScore.setText(String.valueOf(userInformation.getCurrent_score()));
-        userInformation.setFlag(true);
-
-    }
-
-    public void updateBoard(){
-        for(int i=1; i<=H; i++) {
-            for (int j = 1; j <= W; j++) {
-
-                textViews[i][j].setText(String.valueOf(board[i][j]));
-            }
-        }
-
-        colorBoard();
-    }
-
-    @SuppressLint("ResourceAsColor")
-    public void colorBoard(){
-
-        for(int i=1;i<=H;i++){
-            for(int j = 1;j<=W;j++){
-
-                switch (board[i][j]){
-                    case 1:
-                        textViews[i][j].setBackgroundResource(R.drawable.bg_tile_one);
-
-                        break;
-                    case 2:
-                        Log.d("dfdf","fuck");
-                        textViews[i][j].setBackgroundResource(R.drawable.bg_tile_two);
-                        break;
-                    case 3:
-                        textViews[i][j].setBackgroundResource(R.drawable.bg_tile_three);
-                        break;
-                    case 4:
-                        textViews[i][j].setBackgroundResource(R.drawable.bg_tile_four);
-                        break;
-                    case 5:
-                        textViews[i][j].setBackgroundResource(R.drawable.bg_tile_five);
-                        break;
-                    case 6:
-                        textViews[i][j].setBackgroundResource(R.drawable.bg_tile_six);
-                        break;
-                    case 7:
-                        textViews[i][j].setBackgroundResource(R.drawable.bg_tile_seven);
-                        break;
-                    case 8:
-                        textViews[i][j].setBackgroundResource(R.drawable.bg_tile_eight);
-                        break;
-                    case 9:
-                        textViews[i][j].setBackgroundResource(R.drawable.bg_tile_nine);
-                        break;
-                    case 10:
-                        textViews[i][j].setBackgroundResource(R.drawable.bg_tile_ten);
-                        break;
-                }
+            if(curr_number==10){
+                flag_dialog=4;
+                showCustomDialog();
             }
         }
     }
@@ -489,18 +232,192 @@ public class MainPage extends AppCompatActivity {
         }
     }
 
-    public void define(){
+    @SuppressLint("ResourceAsColor")
+    public void colorBoard(){
 
-        mainLL = findViewById(R.id.main_ll);
-        llDialog = findViewById(R.id.ll_dialog);
-        llDialog.setVisibility(View.GONE);
-        txtScore = findViewById(R.id.txt_max_score_dialog);
-        txtNumber = findViewById(R.id.txt_max_number_dialog);
-        btndes = findViewById(R.id.btndis);
-        yes =  findViewById(R.id.postive_feedback_layout);
-        no =  findViewById(R.id.negative_feedback_layout);
-        txtYes =  findViewById(R.id.positive_feedback_text);
-        txtNo =  findViewById(R.id.negative_feedback_text);
+        for(int i=1;i<=H;i++){
+            for(int j = 1;j<=W;j++){
+
+                switch (board[i][j]){
+                    case 1:
+                        textViews[i][j].setBackgroundResource(R.drawable.bg_tile_one);
+
+                        break;
+                    case 2:
+                        Log.d("dfdf","fuck");
+                        textViews[i][j].setBackgroundResource(R.drawable.bg_tile_two);
+                        break;
+                    case 3:
+                        textViews[i][j].setBackgroundResource(R.drawable.bg_tile_three);
+                        break;
+                    case 4:
+                        textViews[i][j].setBackgroundResource(R.drawable.bg_tile_four);
+                        break;
+                    case 5:
+                        textViews[i][j].setBackgroundResource(R.drawable.bg_tile_five);
+                        break;
+                    case 6:
+                        textViews[i][j].setBackgroundResource(R.drawable.bg_tile_six);
+                        break;
+                    case 7:
+                        textViews[i][j].setBackgroundResource(R.drawable.bg_tile_seven);
+                        break;
+                    case 8:
+                        textViews[i][j].setBackgroundResource(R.drawable.bg_tile_eight);
+                        break;
+                    case 9:
+                        textViews[i][j].setBackgroundResource(R.drawable.bg_tile_nine);
+                        break;
+                    case 10:
+                        textViews[i][j].setBackgroundResource(R.drawable.bg_tile_ten);
+                        break;
+                }
+            }
+        }
+    }
+
+    public void updateBoard(){
+        for(int i=1; i<=H; i++) {
+            for (int j = 1; j <= W; j++) {
+
+                textViews[i][j].setText(String.valueOf(board[i][j]));
+            }
+        }
+
+        colorBoard();
+    }
+
+    public void txt_click(View view){
+
+        int id = view.getId();
+        Log.d("MainPage","txtClick " +id);
+        switch (id){
+
+            case R.id.txt_11:
+                check(1,1);
+                break;
+            case R.id.txt_12:
+                check(1,2);
+                break;
+            case R.id.txt_13:
+                check(1,3);
+                break;
+            case R.id.txt_14:
+                check(1,4);
+                break;
+            case R.id.txt_15:
+                check(1,5);
+                break;
+            case R.id.txt_21:
+                check(2,1);
+                break;
+            case R.id.txt_22:
+                check(2,2);
+                break;
+            case R.id.txt_23:
+                check(2,3);
+                break;
+            case R.id.txt_24:
+                check(2,4);
+                break;
+            case R.id.txt_25:
+                check(2,5);
+                break;
+            case R.id.txt_31:
+                check(3,1);
+                break;
+            case R.id.txt_32:
+                check(3,2);
+                break;
+            case R.id.txt_33:
+                check(3,3);
+                break;
+            case R.id.txt_34:
+                check(3,4);
+                break;
+            case R.id.txt_35:
+                check(3,5);
+                break;
+            case R.id.txt_41:
+                check(4,1);
+                break;
+            case R.id.txt_42:
+                check(4,2);
+                break;
+            case R.id.txt_43:
+                check(4,3);
+                break;
+            case R.id.txt_44:
+                check(4,4);
+                break;
+            case R.id.txt_45:
+                check(4,5);
+                break;
+            case R.id.txt_51:
+                check(5,1);
+                break;
+            case R.id.txt_52:
+                check(5,2);
+                break;
+            case R.id.txt_53:
+                check(5,3);
+                break;
+            case R.id.txt_54:
+                check(5,4);
+                break;
+            case R.id.txt_55:
+                check(5,5);
+                break;
+
+
+        }
+
+    }
+
+
+    public void newGame(){
+
+        if(curr_score>max_score)
+            userInformation.setMax_score(curr_score);
+        if(curr_number>max_number)
+            userInformation.setMax_number(curr_number);
+
+        // showInterstitial();
+        userInformation.setFlag(false);
+        double val = 0;
+        for(int i = 1;i<=H;i++){
+            for(int j = 1;j<=W;j++){
+
+                val = Math.floor(Math.random()*10+1);
+
+                if(val==1){
+                    board[i][j] = 4;
+                }
+                else if(val<=3){
+                    board[i][j] = 3;
+                }
+                else if(val<=6){
+                    board[i][j] = 2;
+                }
+                else{
+                    board[i][j] = 1;
+                }
+            }
+        }
+
+        updateBoard();
+        curr_score = 0;
+        curr_number = 0;
+        userInformation.setCurrent_state(board);
+        userInformation.setCurrent_score(curr_score);
+        txtMaxScore.setText(String.valueOf(userInformation.getMax_score()));
+        txtMaxNumber.setText(String.valueOf(userInformation.getMax_number()));
+        txtCurrScore.setText(String.valueOf(userInformation.getCurrent_score()));
+        userInformation.setFlag(true);
+
+    }
+    
+    public void define(){
 
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId(getString(R.string.interstitial_full_screen));
@@ -508,10 +425,6 @@ public class MainPage extends AppCompatActivity {
                 .build();
         animFadein = AnimationUtils.loadAnimation(getApplicationContext(),
                 R.anim.slide_down);
-        animationDown = AnimationUtils.loadAnimation(getApplicationContext(),
-                R.anim.move_down);
-        animationUp = AnimationUtils.loadAnimation(getApplicationContext(),
-                R.anim.move_up);
 
         board = new int[9][9];
         selected = new boolean[9][9];
@@ -549,6 +462,7 @@ public class MainPage extends AppCompatActivity {
         textViews[5][5] = findViewById(R.id.txt_55);
     }
 
+    
     private void showInterstitial() {
         // Load ads into Interstitial Ads
         mInterstitialAd.loadAd(adRequest);
@@ -559,6 +473,18 @@ public class MainPage extends AppCompatActivity {
                     mInterstitialAd.show();
                 }
             }
+            public void onAdClosed(){
+                if(flag_dialog==3)
+                    finish();
+                if(flag_dialog==1)
+                    newGame();
+            }
+            public void onAdFailedToLoad(int errorCode) {
+                if(flag_dialog==3)
+                    finish();
+                if(flag_dialog==1)
+                    newGame();
+            }
         });
 
     }
@@ -566,10 +492,7 @@ public class MainPage extends AppCompatActivity {
     private void showAds() {
 
         mAdView =  findViewById(R.id.adView);
-
         AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("E94309F6B1155D24023F2474FB1F0E9D")
                 .build();
 
         mAdView.setAdListener(new AdListener() {
@@ -580,17 +503,14 @@ public class MainPage extends AppCompatActivity {
             @Override
             public void onAdClosed() {
 
-                Toast.makeText(getApplicationContext(), "Ad is closed!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onAdFailedToLoad(int errorCode) {
-                Toast.makeText(getApplicationContext(), "Ad failed to load! error code: " + errorCode, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onAdLeftApplication() {
-                Toast.makeText(getApplicationContext(), "Ad left application!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -626,64 +546,142 @@ public class MainPage extends AppCompatActivity {
         super.onDestroy();
     }
 
-
     @Override
     public void onBackPressed() {
 
         flag_dialog = 3;
-        showDialogg();
-
+        showCustomDialog();
     }
+    
+    public void showCustomDialog(){
+        LayoutInflater factory = LayoutInflater.from(this);
+        final View deleteDialogView = factory.inflate(R.layout.custom_dialogbox, null);
+        final AlertDialog deleteDialog = new AlertDialog.Builder(this).create();
+        deleteDialog.setView(deleteDialogView);
+        // Include dialog.xml file
+        deleteDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation_2; //style id
+        deleteDialog.show();
 
-    public void txt_dialog(View v){
+        TextView txt_positive_dialog = deleteDialog.findViewById(R.id.positive_feedback_text);
+        TextView txt_negetive_dialog = deleteDialog.findViewById(R.id.negative_feedback_text);
+        LinearLayout ll_nenetive_dialog = deleteDialog.findViewById(R.id.negative_feedback_layout);
 
-        switch (v.getId()) {
-            case R.id.positive_feedback_text:
-                if (flag_dialog == 1){
-                    llDialog.startAnimation(animationDown);
-                    newGame();
-                }
-                else if (flag_dialog == 2){
-                    llDialog.startAnimation(animationDown);
+        TextView txtScore = deleteDialog.findViewById(R.id.txt_max_score_dialog);
+        TextView txtNumber = deleteDialog.findViewById(R.id.txt_max_number_dialog);
+        TextView btndes = deleteDialog.findViewById(R.id.btndis);
 
-                    newGame();
-                }
-                if (flag_dialog == 3){
-                    llDialog.startAnimation(animationDown);
+        if(flag_dialog==1) {
+            btndes.setText("Do you want to start new Game?");
+            txtScore.setVisibility(View.GONE);
+            txtNumber.setVisibility(View.GONE);
+            txt_positive_dialog.setText("Yes");
+            txt_negetive_dialog.setText("No");
+        }
+        else if(flag_dialog==2) {
+            btndes.setText("No more move..");
+            txtScore.setText(String.valueOf(curr_score));
+            txtNumber.setText(String.valueOf(curr_number));
+            txtScore.setVisibility(View.VISIBLE);
 
-                    finish();
-                }
-                mainLL.setClickable(true);
 
-                break;
-            case R.id.negative_feedback_text:
-                llDialog.startAnimation(animationDown);
+            switch (curr_number) {
+                case 1:
+                    txtNumber.setBackgroundResource(R.drawable.bg_tile_one);
+                    break;
+                case 2:
+                    Log.d("dfdf", "fuck");
+                    txtNumber.setBackgroundResource(R.drawable.bg_tile_two);
+                    break;
+                case 3:
+                    txtNumber.setBackgroundResource(R.drawable.bg_tile_three);
+                    break;
+                case 4:
+                    txtNumber.setBackgroundResource(R.drawable.bg_tile_four);
+                    break;
+                case 5:
+                    txtNumber.setBackgroundResource(R.drawable.bg_tile_five);
+                    break;
+                case 6:
+                    txtNumber.setBackgroundResource(R.drawable.bg_tile_six);
+                    break;
+                case 7:
+                    txtNumber.setBackgroundResource(R.drawable.bg_tile_seven);
+                    break;
+                case 8:
+                    txtNumber.setBackgroundResource(R.drawable.bg_tile_eight);
+                    break;
+                case 9:
+                    txtNumber.setBackgroundResource(R.drawable.bg_tile_one);
+                    break;
+                case 10:
+                    txtNumber.setBackgroundResource(R.drawable.bg_tile_ten);
+                    break;
+            }
+            txtNumber.setVisibility(View.VISIBLE);
+            ll_nenetive_dialog.setVisibility(View.GONE);
+            txt_positive_dialog.setText("Try Again");
+        }
+        else if(flag_dialog==3){
+            btndes.setText("Do you want to leave?");
+            txtScore.setVisibility(View.GONE);
+            txtNumber.setVisibility(View.GONE);
+            txt_positive_dialog.setText("Yes");
+            txt_negetive_dialog.setText("No");
 
-                mainLL.setClickable(true);
-                if(flag_dialog==2)
-                    newGame();
-
-                break;
-            default:
-                mainLL.setClickable(true);
-
-                break;
+        }
+        else if(flag_dialog==4) {
+            btndes.setText("You win the Game \n Do you want to play new Game");
+            txtScore.setVisibility(View.GONE);
+            txtNumber.setVisibility(View.GONE);
+            txt_positive_dialog.setText("Yes");
+            txt_negetive_dialog.setText("No");
         }
 
 
+        txt_positive_dialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //your business logic
+                Log.d("ededed","eded");
+
+                if(flag_dialog==1){
+                    if(userInformation.getCount()==3){
+                        userInformation.setCount(0);
+                        showInterstitial();
+                    }
+                    else{
+                        userInformation.setCount(userInformation.getCount()+1);
+                        newGame();
+
+                    }
+                }
+                else if(flag_dialog==2){
+
+                    newGame();
+                }
+                else if(flag_dialog==3){
+
+                    showInterstitial();
+                }
+                else if(flag_dialog==4){
+                    newGame();
+                }
+                deleteDialog.dismiss();
+
+            }
+        });
+
+        txt_negetive_dialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //your business logic
+                Log.d("ededed","eded");
+                deleteDialog.dismiss();
+            }
+        });
+
     }
-
 }
-
-
-
-
-
-
-
-
-
-
 
 
 

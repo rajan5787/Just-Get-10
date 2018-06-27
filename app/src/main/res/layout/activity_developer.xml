@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/fresh"
+    android:background="@color/bg_screen"
     tools:context="rajan5787.tikuraja.justget10.Developer">
 
     <ScrollView
@@ -45,6 +45,7 @@
                     android:text="Rajan Pipaliya"
                     android:id="@+id/tvRajan"
                     android:textSize="42sp"
+                    android:textColor="#aa000000"
                     android:layout_marginTop="12dp"
                     android:textStyle="bold|italic"/>
 
@@ -78,17 +79,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:textSize="38sp"
+                    android:textSize="32sp"
                     android:textStyle="bold"
-                    android:textColor="#aaffffff"
+                    android:textColor="#aa000000"
                     android:layout_marginBottom="22dp"
-                    android:text="Contact With Us...."/>
+                    android:text="Contact With me...."/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:id="@+id/ll_linedin"
                     android:paddingLeft="12dp"
+                    android:onClick="onClick"
                     android:layout_margin="8dp">
 
                     <ImageView
@@ -115,6 +118,8 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingLeft="12dp"
+                    android:onClick="onClick"
+                    android:id="@+id/ll_facebook"
                     android:layout_margin="8dp">
 
                     <ImageView
@@ -143,6 +148,8 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingLeft="12dp"
+                    android:onClick="onClick"
+                    android:id="@+id/ll_google"
                     android:layout_margin="8dp">
 
                     <ImageView

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#aeff7961"
+    android:background="@color/bg_screen"
     tools:context="rajan5787.tikuraja.justget10.MainActivity">
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
             android:textSize="38sp"
             android:gravity="center"
             android:paddingLeft="8dp"
-            android:textColor="#ff66a6a6"
+            android:textColor="#ff7961"
             android:layout_gravity="center"/>
 
         <TextView
@@ -30,7 +30,7 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:background="@drawable/txt_title"
-            android:textColor="#cc119a55"
+            android:textColor="#ff7961"
             android:textSize="48dp"
             android:textStyle="bold"/>
     </LinearLayout>
@@ -47,7 +47,7 @@
         android:textColor="#aaffffff"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:padding="34dp"
+        android:padding="48dp"
         />
 
     <LinearLayout
@@ -76,9 +76,10 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/text_text"
                 android:gravity="center"
-                android:textSize="18sp"
+                android:autoSizeMaxTextSize="18sp"
                 android:paddingBottom="2dp"
-                android:textColor="#cc000000"
+                android:maxLines="2"
+                android:textColor="#99000000"
                 android:text="How to play"/>
         </LinearLayout>
 
@@ -102,9 +103,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:textSize="18sp"
+                android:autoSizeMaxTextSize="18sp"
                 android:paddingBottom="2dp"
-                android:textColor="#cc000000"
+                android:maxLines="1"
+                android:textColor="#99000000"
                 android:text="Give Us Rate"/>
         </LinearLayout>
 
@@ -128,8 +130,9 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:paddingBottom="2dp"
-                android:textSize="18sp"
-                android:textColor="#cc000000"
+                android:autoSizeMaxTextSize="18sp"
+                android:maxLines="1"
+                android:textColor="#99000000"
                 android:text="More App"/>
         </LinearLayout>
 
@@ -152,9 +155,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:textSize="18sp"
+                android:autoSizeMaxTextSize="18sp"
                 android:paddingBottom="2dp"
-                android:textColor="#cc000000"
+                android:maxLines="1"
+                android:textColor="#99000000"
                 android:text="Developer"/>
         </LinearLayout>
 

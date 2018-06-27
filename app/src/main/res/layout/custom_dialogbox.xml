@@ -1,49 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     android:orientation="vertical"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginRight="8dp"
-    android:layout_marginLeft="8dp"
     android:gravity="center"
-    android:visibility="gone"
     android:id="@+id/ll_dialog"
     style="@style/style_ll_dialog"
     android:layout_gravity="center"
-    android:background="@android:color/transparent"
+    android:layout_margin="4dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent">
-        <RelativeLayout
-            android:id="@+id/semi_trans"
-            android:background="@android:color/transparent"
-            android:layout_width="match_parent"
-            android:layout_height="25dp">
-
-        </RelativeLayout>
 
         <RelativeLayout
-            android:layout_below="@+id/semi_trans"
             android:id="@+id/dialog_body"
-            android:background="@color/fresh"
-            android:layout_width="match_parent"
+            style="@style/style_ll_dialog"
+            android:background="#ffffff"
+            android:layout_width="wrap_content"
+            android:paddingTop="22dp"
             android:layout_height="wrap_content">
 
             <TextView
                 android:gravity="center"
-                android:textSize="28sp"
-                android:textColor="#FFFFFF"
-                android:paddingBottom="12dp"
-                android:background="@android:color/transparent"
-                android:layout_marginTop="28dp"
+                android:textSize="22sp"
+                android:textColor="#cc000000"
+                android:paddingBottom="48dp"
                 android:layout_gravity="center"
                 android:id="@+id/btndis"
                 android:text="No more move..."
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAllCaps="false" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -72,24 +62,12 @@
                 android:paddingLeft="18dp"
                 android:paddingBottom="12dp"
                 android:textStyle="bold"
-                android:textColor="#ffffff"
+                android:textColor="#cc000000"
                 android:layout_below="@+id/txt_max_number_dialog"
                 android:gravity="center"
                 android:layout_centerHorizontal="true"/>
+
         </RelativeLayout>
-
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/review_icon"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:elevation="5dp"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:adjustViewBounds="true"
-            android:layout_marginBottom="-20dp"
-            android:background="@drawable/bg_circle"
-            android:layout_above="@+id/dialog_body" />
-
     </RelativeLayout>
     <LinearLayout
         android:id="@+id/dialog_action"
@@ -106,13 +84,13 @@
             android:padding="8dp"
             android:clickable="true"
             android:focusable="true"
-            android:background="#24aeaeae"
+            android:background="#aa00aa00"
             android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/positive_feedback_text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="Yes"
                 android:onClick="txt_dialog"
                 android:textStyle="bold"
@@ -120,7 +98,7 @@
                 android:singleLine="true"
                 android:ellipsize="end"
                 android:gravity="center"
-                android:textColor="#aa00aa00"
+                android:textColor="#ffffff"
                 android:layout_marginTop="5dp"
                 />
         </LinearLayout>
@@ -133,11 +111,12 @@
             android:padding="8dp"
             android:clickable="true"
             android:focusable="true"
+            android:background="#33aeaeae"
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/negative_feedback_text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="Exit"
                 android:onClick="txt_dialog"
                 android:textStyle="bold"

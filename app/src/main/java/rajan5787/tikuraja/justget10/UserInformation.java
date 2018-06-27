@@ -23,6 +23,18 @@ public class UserInformation {
     int current_score;
     int[][] current_state;
     boolean flag = false;
+    int count = 0;
+
+    public int getCount() {
+        return pref.getInt("count", 0);
+
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+        editor.putInt("count",count);
+        editor.commit();
+    }
 
     public int getMax_score() {
         return pref.getInt("max_score", 0);

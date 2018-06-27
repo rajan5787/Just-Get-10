@@ -21,7 +21,7 @@
     </style>
 
     <style name="style_ll_dialog">
-        <item name="android:radius">12dp</item>
+        <item name="android:radius">122dp</item>
     </style>
 
     <style name="style_txt_guide_one">
@@ -34,5 +34,10 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:background">@drawable/bg_tile_one</item>
+    </style>
+
+    <style name="DialogAnimation_2">
+        <item name="android:windowEnterAnimation">@anim/move_up</item>
+        <item name="android:windowExitAnimation">@anim/move_down</item>
     </style>
 </resources>
