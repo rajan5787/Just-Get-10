@@ -2,6 +2,7 @@ package rajan5787.tikuraja.justget10;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -47,6 +48,7 @@ public class MainPage extends AppCompatActivity {
     InterstitialAd mInterstitialAd;
     AdRequest adRequest;
     private AdView mAdView;
+    MediaPlayer mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,7 @@ public class MainPage extends AppCompatActivity {
 
         define();
         showAds();
+        mp = MediaPlayer.create(getApplicationContext(), R.raw.sound);
         if(userInformation.isFlag()){
             board = userInformation.getCurrent_state();
             curr_score = userInformation.getCurrent_score();
@@ -98,6 +101,7 @@ public class MainPage extends AppCompatActivity {
 
         checkNext(h,w);
         if(selected[h][w]==true) {
+            mp.start();
             combine(h, w);
 
             for (int i = 1; i <= H; i++) {
