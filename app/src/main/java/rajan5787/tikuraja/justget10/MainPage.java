@@ -28,11 +28,12 @@ import java.util.concurrent.TimeUnit;
 
 public class MainPage extends AppCompatActivity {
 
+    boolean gravity_flag = false;
     int flag_dialog = 0;
     Button btnRestart;
     TextView txtMaxScore, txtMaxNumber, txtCurrScore;
     TextView[][] textViews;
-
+    LinearLayout llTop,llRight, llBottom, llLeft;
     int[][] board;
     boolean[][] selected;
     int W = 5;
@@ -42,6 +43,7 @@ public class MainPage extends AppCompatActivity {
     int max_number;
     int curr_number;
     int number = 0;
+    int gravity = 1;
     UserInformation userInformation;
 
     Animation animFadein;
@@ -56,18 +58,22 @@ public class MainPage extends AppCompatActivity {
         setContentView(R.layout.activity_main_page);
 
 
+        gravity_flag = getIntent().getBooleanExtra("gravtiy_flag",false);
         define();
         showAds();
         mp = MediaPlayer.create(getApplicationContext(), R.raw.sound);
-        if(userInformation.isFlag()){
-            board = userInformation.getCurrent_state();
-            curr_score = userInformation.getCurrent_score();
-            max_score = userInformation.getMax_score();
-            max_number = userInformation.getMax_number();
+
+        if(userInformation.isFlag(gravity_flag)){
+            board = userInformation.getCurrent_state(gravity_flag);
+            curr_score = userInformation.getCurrent_score(gravity_flag);
+            max_score = userInformation.getMax_score(gravity_flag);
+            max_number = userInformation.getMax_number(gravity_flag);
             txtMaxScore.setText(String.valueOf(max_score));
             txtMaxNumber.setText(String.valueOf(max_number));
             txtCurrScore.setText(String.valueOf(curr_score));
-
+            if(gravity_flag){
+                gravity = userInformation.getGravity_value();
+            }
             updateBoard();
         }
         else {
@@ -102,7 +108,7 @@ public class MainPage extends AppCompatActivity {
         checkNext(h,w);
         if(selected[h][w]==true) {
             mp.start();
-            combine(h, w);
+            combineGravity(h, w);
 
             for (int i = 1; i <= H; i++) {
                 for (int j = 1; j <= W; j++) {
@@ -122,9 +128,9 @@ public class MainPage extends AppCompatActivity {
                     fillNumbers();
                     colorBoard();
                     updateBoard();
-                    userInformation.setCurrent_state(board);
-                    userInformation.setCurrent_score(curr_score);
-                    userInformation.setFlag(true);
+                    userInformation.setCurrent_state(board,gravity_flag);
+                    userInformation.setCurrent_score(curr_score,gravity_flag);
+                    userInformation.setFlag(true,gravity_flag);
                     if(chekkk()){
                         flag_dialog = 2;
                         showCustomDialog();
@@ -163,48 +169,159 @@ public class MainPage extends AppCompatActivity {
         }
     }
 
-    public void combine(int h,int w) {
+    public void combineGravity(int h,int w) {
 
         number = board[h][w];
         int val = board[h][w] + 1;
         if(val>curr_number)
             curr_number = val;
         if(val>max_number)
-            userInformation.setMax_number(val);
+            userInformation.setMax_number(val,gravity_flag);
         curr_score+=number;
         board[h][w] = val;
         selected[h][w] = false;
-        for(int i=1; i<=H; i++) {
-            for(int j=1; j<=W; j++) {
-                if(selected[i][j] == true) {
-                    curr_score+=number;
-                    board[i][j] = 0;
-                    textViews[i][j].setVisibility(View.INVISIBLE);
+        switch (gravity){
+            case 1:
+                for(int i=1; i<=H; i++) {
+                    for (int j = 1; j <= W; j++) {
+                        if (selected[i][j] == true) {
+                            curr_score += number;
+                            board[i][j] = 0;
+                            textViews[i][j].setVisibility(View.INVISIBLE);
+                        }
+                    }
                 }
-            }
+                break;
+            case 2:
+                for(int i=W; i>=1; i--) {
+                    for (int j = H; j >= 1; j--) {
+                        if (selected[i][j] == true) {
+                            curr_score += number;
+                            board[i][j] = 0;
+                            textViews[i][j].setVisibility(View.INVISIBLE);
+                        }
+                    }
+                }
+                break;
+            case 3:
+                for(int i=H; i>=1; i--) {
+                    for (int j = W; j >= 1; j--) {
+                        if (selected[i][j] == true) {
+                            curr_score += number;
+                            board[i][j] = 0;
+                            textViews[i][j].setVisibility(View.INVISIBLE);
+                        }
+                    }
+                }
+                break;
+            case 4:
+                for(int j=1; j<=W; j++) {
+                    for (int i = 1; i <= H; i++) {
+                        if (selected[i][j] == true) {
+                            curr_score += number;
+                            board[i][j] = 0;
+                            textViews[i][j].setVisibility(View.INVISIBLE);
+                        }
+                    }
+                }
+                break;
         }
+//        for(int i=1; i<=H; i++) {
+//            for(int j=1; j<=W; j++) {
+//                if(selected[i][j] == true) {
+//                    curr_score+=number;
+//                    board[i][j] = 0;
+//                    textViews[i][j].setVisibility(View.INVISIBLE);
+//                }
+//            }
+//        }
         txtCurrScore.setText(String.valueOf(curr_score));
     }
 
     public void fall() throws InterruptedException {
 
-        for (int n = 1; n <= H; n++) {
-            for (int i = 1; i <= H; i++) {
-                for (int j = 1; j <= W; j++) {
-                    if (board[i][j] == 0) {
-                        System.out.println(" h " + i + " w " + j);
-                        board[i][j] = board[i - 1][j];
-                        board[i - 1][j] = 0;
-                        if(i!=1)
-                            textViews[i-1][j].setVisibility(View.INVISIBLE);
-                        textViews[i][j].setText(String.valueOf(board[i][j]));
-                        textViews[i][j].setVisibility(View.VISIBLE);
+        switch (gravity){
+            case 1:
+                for (int n = 1; n <= H; n++) {
+                    for (int i = 1; i <= H; i++) {
+                        for (int j = 1; j <= W; j++) {
+                            if (board[i][j] == 0) {
+                                System.out.println(" h " + i + " w " + j);
+                                board[i][j] = board[i - 1][j];
+                                board[i - 1][j] = 0;
+                                if(i!=1)
+                                    textViews[i-1][j].setVisibility(View.INVISIBLE);
+                                textViews[i][j].setText(String.valueOf(board[i][j]));
+                                textViews[i][j].setVisibility(View.VISIBLE);
+                            }
+                        }
                     }
+                    TimeUnit.MILLISECONDS.sleep((n-1)*2*10);
                 }
-            }
-            TimeUnit.MILLISECONDS.sleep((n-1)*2*10);
+                break;
+            case 2:
+                for (int n = 1; n <= H; n++) {
+                    for (int j = W; j >= 1; j--) {
+                        for (int i = H; i >= 1; i--) {
+                            if (board[i][j] == 0) {
+                                System.out.println(" h " + i + " w " + j);
+                                board[i][j] = board[i][j+1];
+                                board[i][j+1] = 0;
+                                if(j!=W)
+                                    textViews[i][j+1].setVisibility(View.INVISIBLE);
+                                textViews[i][j].setText(String.valueOf(board[i][j]));
+                                textViews[i][j].setVisibility(View.VISIBLE);
+                            }
+                        }
+                    }
+                    TimeUnit.MILLISECONDS.sleep((n-1)*2*10);
+                }
+                break;
+            case 3:
+                for (int n = 1; n <= H; n++) {
+                    for (int i = H; i >= 1; i--) {
+                        for (int j = W; j >= 1; j--) {
+                            if (board[i][j] == 0) {
+                                System.out.println(" h " + i + " w " + j);
+                                board[i][j] = board[i + 1][j];
+                                board[i + 1][j] = 0;
+                                if(i!=H)
+                                    textViews[i+1][j].setVisibility(View.INVISIBLE);
+                                textViews[i][j].setText(String.valueOf(board[i][j]));
+                                textViews[i][j].setVisibility(View.VISIBLE);
+                            }
+                        }
+                    }
+                    TimeUnit.MILLISECONDS.sleep((n-1)*2*10);
+                }
+                break;
+            case 4:
+                for (int n = 1; n <= W; n++) {
+                    for (int j = 1; j <= W; j++) {
+                        for (int i = 1; i <= H; i++) {
+                            if (board[i][j] == 0) {
+                                System.out.println(" h " + i + " w " + j);
+                                board[i][j] = board[i][j-1];
+                                board[i][j-1] = 0;
+                                if(j!=1)
+                                    textViews[i][j-1].setVisibility(View.INVISIBLE);
+                                textViews[i][j].setText(String.valueOf(board[i][j]));
+                                textViews[i][j].setVisibility(View.VISIBLE);
+                            }
+                        }
+                    }
+                    TimeUnit.MILLISECONDS.sleep((n-1)*2*10);
+                }
+                break;
         }
 
+        if(gravity_flag) {
+            gravity += 1;
+            if (gravity == 5)
+                gravity = 1;
+
+            userInformation.setGravity_value(gravity);
+        }
     }
 
     public void fillNumbers() {
@@ -276,6 +393,26 @@ public class MainPage extends AppCompatActivity {
                         textViews[i][j].setBackgroundResource(R.drawable.bg_tile_ten);
                         break;
                 }
+            }
+        }
+
+        if(gravity_flag){
+            llBottom.setBackgroundResource(R.color.bg_screen);
+            llRight.setBackgroundResource(R.color.bg_screen);
+            llLeft.setBackgroundResource(R.color.bg_screen);
+            llTop.setBackgroundResource(R.color.bg_screen);
+
+            if(gravity==1) {
+                llBottom.setBackgroundResource(R.color.ten);
+            }
+            if(gravity==2) {
+                llLeft.setBackgroundResource(R.color.ten);
+            }
+            if(gravity==3) {
+                llTop.setBackgroundResource(R.color.ten);
+            }
+            if(gravity==4) {
+                llRight.setBackgroundResource(R.color.ten);
             }
         }
     }
@@ -382,12 +519,13 @@ public class MainPage extends AppCompatActivity {
     public void newGame(){
 
         if(curr_score>max_score)
-            userInformation.setMax_score(curr_score);
+            userInformation.setMax_score(curr_score,gravity_flag);
         if(curr_number>max_number)
-            userInformation.setMax_number(curr_number);
+            userInformation.setMax_number(curr_number,gravity_flag);
 
         // showInterstitial();
-        userInformation.setFlag(false);
+
+        userInformation.setFlag(false,gravity_flag);
         double val = 0;
         for(int i = 1;i<=H;i++){
             for(int j = 1;j<=W;j++){
@@ -412,21 +550,29 @@ public class MainPage extends AppCompatActivity {
         updateBoard();
         curr_score = 0;
         curr_number = 0;
-        userInformation.setCurrent_state(board);
-        userInformation.setCurrent_score(curr_score);
-        txtMaxScore.setText(String.valueOf(userInformation.getMax_score()));
-        txtMaxNumber.setText(String.valueOf(userInformation.getMax_number()));
-        txtCurrScore.setText(String.valueOf(userInformation.getCurrent_score()));
-        userInformation.setFlag(true);
+        userInformation.setCurrent_state(board,gravity_flag);
+        userInformation.setCurrent_score(curr_score,gravity_flag);
+        txtMaxScore.setText(String.valueOf(userInformation.getMax_score(gravity_flag)));
+        txtMaxNumber.setText(String.valueOf(userInformation.getMax_number(gravity_flag)));
+        txtCurrScore.setText(String.valueOf(userInformation.getCurrent_score(gravity_flag)));
+        userInformation.setFlag(true,gravity_flag);
 
     }
-    
+
     public void define(){
 
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_full_screen));
-        adRequest = new AdRequest.Builder()
-                .build();
+        llTop = findViewById(R.id.ll_top);
+        llRight = findViewById(R.id.ll_right);
+        llBottom = findViewById(R.id.ll_bottom);
+        llLeft = findViewById(R.id.ll_left);
+
+        mInterstitialAd = createNewIntAd();
+        loadIntAdd();
+
+//        mInterstitialAd = new InterstitialAd(this);
+//        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_full_screen));
+//        adRequest = new AdRequest.Builder()
+//                .build();
         animFadein = AnimationUtils.loadAnimation(getApplicationContext(),
                 R.anim.slide_down);
 
@@ -466,31 +612,54 @@ public class MainPage extends AppCompatActivity {
         textViews[5][5] = findViewById(R.id.txt_55);
     }
 
-    
-    private void showInterstitial() {
-        // Load ads into Interstitial Ads
+    private void loadIntAdd() {
+        // Disable the  level two button and load the ad.
+        AdRequest adRequest = new AdRequest.Builder()
+                .build();
         mInterstitialAd.loadAd(adRequest);
-
-        mInterstitialAd.setAdListener(new AdListener() {
+    }
+    private InterstitialAd createNewIntAd() {
+        InterstitialAd intAd = new InterstitialAd(this);
+        Log.d("afafaf","xxx");
+        intAd.setAdUnitId(getString(R.string.interstitial_full_screen));
+        intAd.setAdListener(new AdListener() {
+            @Override
             public void onAdLoaded() {
-                if (mInterstitialAd.isLoaded()) {
-                    mInterstitialAd.show();
-                }
+                Log.d("afafaf","xxx");
+
             }
-            public void onAdClosed(){
-                if(flag_dialog==3)
-                    finish();
-                if(flag_dialog==1)
-                    newGame();
-            }
+
+            @Override
             public void onAdFailedToLoad(int errorCode) {
-                if(flag_dialog==3)
+                Log.d("afafaf","www"+errorCode);
+            }
+
+            @Override
+            public void onAdClosed() {
+                // Proceed to the next level.
+                if(flag_dialog==3) {
+                    Log.d("afafaf","ccc");
                     finish();
+                }
                 if(flag_dialog==1)
                     newGame();
             }
         });
+        return intAd;
+    }
+    private void showIntAdd() {
 
+// Show the ad if it's ready. Otherwise, toast and reload the ad.
+        if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        }
+        else{
+            Log.d("afgfgfg","fgfg");
+            if(flag_dialog==3)
+                    finish();
+                if(flag_dialog==1)
+                    newGame();
+        }
     }
 
     private void showAds() {
@@ -556,7 +725,7 @@ public class MainPage extends AppCompatActivity {
         flag_dialog = 3;
         showCustomDialog();
     }
-    
+
     public void showCustomDialog(){
         LayoutInflater factory = LayoutInflater.from(this);
         final View deleteDialogView = factory.inflate(R.layout.custom_dialogbox, null);
@@ -647,14 +816,15 @@ public class MainPage extends AppCompatActivity {
             public void onClick(View view) {
                 //your business logic
                 Log.d("ededed","eded");
+                deleteDialog.dismiss();
 
                 if(flag_dialog==1){
-                    if(userInformation.getCount()==3){
+                    if(userInformation.getCount(gravity_flag)==3){
                         userInformation.setCount(0);
-                        showInterstitial();
+                        showIntAdd();
                     }
                     else{
-                        userInformation.setCount(userInformation.getCount()+1);
+                        userInformation.setCount(userInformation.getCount(gravity_flag)+1);
                         newGame();
 
                     }
@@ -665,13 +835,11 @@ public class MainPage extends AppCompatActivity {
                 }
                 else if(flag_dialog==3){
 
-                    showInterstitial();
+                    showIntAdd();
                 }
                 else if(flag_dialog==4){
                     newGame();
                 }
-                deleteDialog.dismiss();
-
             }
         });
 

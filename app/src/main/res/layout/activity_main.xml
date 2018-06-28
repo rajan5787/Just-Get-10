@@ -35,21 +35,55 @@
             android:textStyle="bold"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btn_start_game"
         android:text="START"
         android:background="@drawable/bg_btn_start"
-        android:gravity="center"
         android:textSize="34dp"
         android:elevation="8dp"
         android:textColor="#aaffffff"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
         android:padding="48dp"
         />
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_classic_game"
+            android:text="Clasic Game"
+            android:textAllCaps="false"
+            android:background="@drawable/bg_btn_start"
+            android:textSize="34dp"
+            android:elevation="8dp"
+            android:visibility="gone"
+            android:layout_marginBottom="18dp"
+            android:textColor="#aaffffff"
+            android:padding="18dp"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_gravity_game"
+            android:text="Gravity Game"
+            android:textAllCaps="false"
+            android:visibility="gone"
+            android:background="@drawable/bg_btn_start"
+            android:textSize="34dp"
+            android:elevation="8dp"
+            android:layout_marginTop="18dp"
+            android:textColor="#aaffffff"
+            android:padding="18dp"
+            />
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

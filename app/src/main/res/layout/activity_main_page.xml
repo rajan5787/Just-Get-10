@@ -105,17 +105,48 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.9"
+        android:layout_margin="4dp"
+        android:elevation="8dp"
         android:layout_below="@+id/ll_scorebar"
         android:layout_above="@+id/btn_restart_game"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:orientation="vertical"
+            android:layout_alignParentTop="true"
+            android:id="@+id/ll_top"></LinearLayout>
+
+        <LinearLayout
+            android:layout_width="3dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_alignParentRight="true"
+            android:id="@+id/ll_right"></LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/ll_bottom"></LinearLayout>
+
+        <LinearLayout
+            android:layout_width="3dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/ll_left"></LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
         android:background="@drawable/bg_rl_score"
         android:padding="6dp"
-        android:elevation="8dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -334,6 +365,10 @@
 
         </LinearLayout>
     </LinearLayout>
+    </RelativeLayout>
+
+
+
 
     <RelativeLayout
         android:layout_width="match_parent"
