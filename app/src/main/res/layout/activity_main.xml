@@ -106,12 +106,13 @@
                 android:src="@drawable/ic_information"
                 android:layout_gravity="center"/>
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/text_text"
                 android:gravity="center"
+                android:layout_gravity="center"
                 android:autoSizeMaxTextSize="18sp"
-                android:paddingBottom="2dp"
+                android:paddingTop="4dp"
                 android:maxLines="2"
                 android:textColor="#99000000"
                 android:text="How to play"/>
@@ -138,10 +139,10 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:autoSizeMaxTextSize="18sp"
-                android:paddingBottom="2dp"
+                android:paddingTop="4dp"
                 android:maxLines="1"
                 android:textColor="#99000000"
-                android:text="Give Us Rate"/>
+                android:text="Give us Rate"/>
         </LinearLayout>
 
         <LinearLayout
