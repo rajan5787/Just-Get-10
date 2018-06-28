@@ -1,26 +1,22 @@
 package rajan5787.tikuraja.justget10;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 
@@ -48,9 +44,9 @@ public class MainPage extends AppCompatActivity {
 
     Animation animFadein;
     InterstitialAd mInterstitialAd;
-    AdRequest adRequest;
     private AdView mAdView;
     MediaPlayer mp;
+    ImageButton imgbtnSound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +84,19 @@ public class MainPage extends AppCompatActivity {
             }
         });
 
+        imgbtnSound.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(userInformation.isVoulume_flag()) {
+                    userInformation.setVoulume_flag(false);
+                    imgbtnSound.setImageResource(R.drawable.ic_mute_volume);
+                }
+                else {
+                    userInformation.setVoulume_flag(true);
+                    imgbtnSound.setImageResource(R.drawable.ic_volume);
+                }
+            }
+        });
     }
 
 
@@ -106,8 +115,9 @@ public class MainPage extends AppCompatActivity {
     public void check(int h,int w) {
 
         checkNext(h,w);
-        if(selected[h][w]==true) {
-            mp.start();
+        if(selected[h][w]) {
+            if(userInformation.isVoulume_flag())
+                mp.start();
             combineGravity(h, w);
 
             for (int i = 1; i <= H; i++) {
@@ -365,7 +375,6 @@ public class MainPage extends AppCompatActivity {
 
                         break;
                     case 2:
-                        Log.d("dfdf","fuck");
                         textViews[i][j].setBackgroundResource(R.drawable.bg_tile_two);
                         break;
                     case 3:
@@ -431,7 +440,6 @@ public class MainPage extends AppCompatActivity {
     public void txt_click(View view){
 
         int id = view.getId();
-        Log.d("MainPage","txtClick " +id);
         switch (id){
 
             case R.id.txt_11:
@@ -523,7 +531,7 @@ public class MainPage extends AppCompatActivity {
         if(curr_number>max_number)
             userInformation.setMax_number(curr_number,gravity_flag);
 
-        // showInterstitial();
+        gravity = 1;
 
         userInformation.setFlag(false,gravity_flag);
         double val = 0;
@@ -561,25 +569,28 @@ public class MainPage extends AppCompatActivity {
 
     public void define(){
 
-        llTop = findViewById(R.id.ll_top);
-        llRight = findViewById(R.id.ll_right);
-        llBottom = findViewById(R.id.ll_bottom);
-        llLeft = findViewById(R.id.ll_left);
-
-        mInterstitialAd = createNewIntAd();
-        loadIntAdd();
-
-//        mInterstitialAd = new InterstitialAd(this);
-//        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_full_screen));
-//        adRequest = new AdRequest.Builder()
-//                .build();
-        animFadein = AnimationUtils.loadAnimation(getApplicationContext(),
-                R.anim.slide_down);
-
         board = new int[9][9];
         selected = new boolean[9][9];
         textViews = new TextView[9][9];
         userInformation = new UserInformation(getApplicationContext());
+
+
+
+        llTop = findViewById(R.id.ll_top);
+        llRight = findViewById(R.id.ll_right);
+        llBottom = findViewById(R.id.ll_bottom);
+        llLeft = findViewById(R.id.ll_left);
+        imgbtnSound = findViewById(R.id.imgbtn_sound);
+        if(userInformation.isVoulume_flag())
+            imgbtnSound.setImageResource(R.drawable.ic_volume);
+        else
+            imgbtnSound.setImageResource(R.drawable.ic_mute_volume);
+
+        animFadein = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.slide_down);
+
+        mInterstitialAd = createNewIntAd();
+        loadIntAdd();
 
         btnRestart = findViewById(R.id.btn_restart_game);
         txtMaxNumber = findViewById(R.id.txt_max_number);
@@ -620,25 +631,18 @@ public class MainPage extends AppCompatActivity {
     }
     private InterstitialAd createNewIntAd() {
         InterstitialAd intAd = new InterstitialAd(this);
-        Log.d("afafaf","xxx");
         intAd.setAdUnitId(getString(R.string.interstitial_full_screen));
         intAd.setAdListener(new AdListener() {
             @Override
             public void onAdLoaded() {
-                Log.d("afafaf","xxx");
-
             }
-
             @Override
             public void onAdFailedToLoad(int errorCode) {
-                Log.d("afafaf","www"+errorCode);
             }
-
             @Override
             public void onAdClosed() {
                 // Proceed to the next level.
                 if(flag_dialog==3) {
-                    Log.d("afafaf","ccc");
                     finish();
                 }
                 if(flag_dialog==1)
@@ -649,12 +653,10 @@ public class MainPage extends AppCompatActivity {
     }
     private void showIntAdd() {
 
-// Show the ad if it's ready. Otherwise, toast and reload the ad.
         if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
             mInterstitialAd.show();
         }
         else{
-            Log.d("afgfgfg","fgfg");
             if(flag_dialog==3)
                     finish();
                 if(flag_dialog==1)
@@ -731,8 +733,7 @@ public class MainPage extends AppCompatActivity {
         final View deleteDialogView = factory.inflate(R.layout.custom_dialogbox, null);
         final AlertDialog deleteDialog = new AlertDialog.Builder(this).create();
         deleteDialog.setView(deleteDialogView);
-        // Include dialog.xml file
-        deleteDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation_2; //style id
+        deleteDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation_2;
         deleteDialog.show();
 
         TextView txt_positive_dialog = deleteDialog.findViewById(R.id.positive_feedback_text);
@@ -762,7 +763,6 @@ public class MainPage extends AppCompatActivity {
                     txtNumber.setBackgroundResource(R.drawable.bg_tile_one);
                     break;
                 case 2:
-                    Log.d("dfdf", "fuck");
                     txtNumber.setBackgroundResource(R.drawable.bg_tile_two);
                     break;
                 case 3:
@@ -814,8 +814,6 @@ public class MainPage extends AppCompatActivity {
         txt_positive_dialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //your business logic
-                Log.d("ededed","eded");
                 deleteDialog.dismiss();
 
                 if(flag_dialog==1){
@@ -846,65 +844,9 @@ public class MainPage extends AppCompatActivity {
         txt_negetive_dialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //your business logic
-                Log.d("ededed","eded");
                 deleteDialog.dismiss();
             }
         });
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-//switch (board[i][j]){
-//        case 1:
-//        textViews[i][j].setBackgroundResource(R.color.cover);
-//
-//        break;
-//        case 2:
-//        Log.d("dfdf","fuck");
-//        textViews[i][j].setBackgroundResource(R.color.terracotta);
-//        break;
-//        case 3:
-//        textViews[i][j].setBackgroundResource(R.color.puce);
-//        break;
-//        case 4:
-//        textViews[i][j].setBackgroundResource(R.color.shutter_blue);
-//        break;
-//        case 5:
-//        textViews[i][j].setBackgroundResource(R.color.lavendet);
-//        break;
-//        case 6:
-//        textViews[i][j].setBackgroundResource(R.color.marina);
-//        break;
-//        case 7:
-//        textViews[i][j].setBackgroundResource(R.color.bittersweet);
-//        break;
-//        case 8:
-//        textViews[i][j].setBackgroundResource(R.color.azul_verde);
-//        break;
-//        case 9:
-//        textViews[i][j].setBackgroundResource(R.color.fresh);
-//        break;
-//        case 10:
-//        textViews[i][j].setBackgroundResource(R.color.creosote);
-//        break;

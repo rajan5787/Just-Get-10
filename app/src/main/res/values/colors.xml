@@ -16,8 +16,9 @@
     <color name="ten">#cc2e323c</color>
     <color name="game_container">#bbada0</color>
     <color name="grid_cell">#ccc0b3</color>
+    <color name="bg_scrdeen">#99dce775</color>
 
-    <color name="bg_screen">#aaB0BEC5</color>
+    <color name="bg_screen">#dddfd1</color>
     <color name="title_text">#f9f6f2</color>
     <color name="tile_color_2">#eee4da</color>
 </resources>

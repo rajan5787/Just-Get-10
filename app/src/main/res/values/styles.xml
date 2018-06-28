@@ -36,8 +36,30 @@
         <item name="android:background">@drawable/bg_tile_one</item>
     </style>
 
+    <style name="style_txt_guide_three">
+        <item name="android:paddingTop">18dp</item>
+        <item name="android:paddingBottom">18dp</item>
+        <item name="android:paddingRight">24dp</item>
+        <item name="android:paddingLeft">24dp</item>
+        <item name="android:text">3</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:background">@drawable/bg_tile_three</item>
+    </style>
+
+
     <style name="DialogAnimation_2">
         <item name="android:windowEnterAnimation">@anim/move_up</item>
         <item name="android:windowExitAnimation">@anim/move_down</item>
+    </style>
+
+    <style name="style_txt_developer">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">22dp</item>
+
     </style>
 </resources>

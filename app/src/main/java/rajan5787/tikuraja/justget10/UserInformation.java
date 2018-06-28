@@ -18,13 +18,15 @@ public class UserInformation {
     int PRIVATE_MODE = 0;
     private static final String PREF_NAME = "USER_DATA";
 
+    boolean volume_flag =true;
+
+
     int max_score;
     int max_number;
     int current_score;
     int[][] current_state;
     boolean flag = false;
     int count = 0;
-    boolean gravity = false;
 
     int max_score_gravity;
     int max_number_gravity;
@@ -32,6 +34,18 @@ public class UserInformation {
     int[][] current_state_gravity;
     int gravity_value = 1;
     boolean flag_gravity = false;
+
+
+
+    public boolean isVoulume_flag() {
+        return pref.getBoolean("volume_flag", true);
+    }
+
+    public void setVoulume_flag(boolean volume_flag) {
+        this.volume_flag = volume_flag;
+        editor.putBoolean("volume_flag",volume_flag);
+        editor.commit();
+    }
 
     public int getGravity_value() {
         return pref.getInt("gravity_value", 1);
