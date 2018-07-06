@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingLeft="12dp"
-    android:paddingRight="12dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
     tools:context="rajan5787.tikuraja.justget10.UserGuide">
 
     <ScrollView
@@ -125,7 +125,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_gravity="center"
-                android:layout_marginBottom="22dp"
+                android:layout_marginBottom="28dp"
                 android:layout_marginTop="18dp"
                 android:gravity="center">
 
@@ -186,6 +186,14 @@
                     android:layout_gravity="center"/>
 
             </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:layout_marginBottom="22dp"
+                android:text="JustGet10 has two play mode Classic and Gravity.\n\nIn classic, the tiles will fall to empty space below when you merge number.\n\nIn Gravity, the direction of the gravity will change in clockwise every time when you merge numbers."/>
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
